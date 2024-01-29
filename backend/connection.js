@@ -12,9 +12,7 @@ mongoose.connect("mongodb://localhost:27017/ToDoListDB")
   .catch((err) => {
     console.log("Not connected to the database " + err);
   });
+  
 
 
-// app.listen(process.env.PORT, () => {
-//     console.log('Server is running on port', process.env.PORT)
-// })
 
