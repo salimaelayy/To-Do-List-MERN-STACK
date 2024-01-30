@@ -18,14 +18,11 @@ const TasksSchema = new mongoose.Schema({
     Priorité: {
         type: String, 
         required : true
-
-        
     },
     Statut: {
         type: String,
         required : true
- 
-       
+
     },
     Supprimé_à: {
         type: String, 
