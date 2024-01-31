@@ -12,8 +12,6 @@ const TasksSchema = new mongoose.Schema({
     description : {
         type: String,
         required : true
-
-        
     },
     Priorité: {
         type: String, 
