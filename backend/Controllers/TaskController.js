@@ -1,31 +1,4 @@
-<<<<<<< HEAD
-const Taskes =require ("../Models/TaskRouter")
-
-const handleErrors =()=>{
-    
-}
-
-
-module.exports.signup_user = async (req, res) => {
-    const { email, password } = req.body;
-  
-    try {
-      const task = await Taskes.create({ email, password });
-      res.status(201).json({ task });
-    }
-    catch(err) {
-       console.error(err);
-     
-      const errors = handleErrors(err);
-      res.status(400).json({ errors });
-    }
-   
-  }
-=======
 const Task =require ("../Models/TasksModels");
-
-
-
 
 
 module.exports.getTasks = async (req, res) => {
@@ -160,4 +133,3 @@ module.exports.updateTask = async (req, res) => {
     }
 };
 
->>>>>>> cca716ebb48a7131cb6102a666c92857ab6cd542
