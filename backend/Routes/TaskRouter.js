@@ -1,13 +1,4 @@
 const express = require("express");
-<<<<<<< HEAD
-const Taskes =require ("../Models/TaskRouter")
-const taskController = require('../Controllers/taskControllers');
-const router = express.Router();
-
-
-router.get('/getTask', userController.getTasks);
-router.getbyid('/getTask', userController.getTasks);
-=======
 const TaskController = require('../Controllers/TaskController');
 const router = express.Router();
 
@@ -23,5 +14,4 @@ module.exports = router ;
 
 
 
->>>>>>> cca716ebb48a7131cb6102a666c92857ab6cd542
 
