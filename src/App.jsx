@@ -5,6 +5,7 @@ import HomePage from '../src/pages/HomePage'
 import LoginPage from '../src/pages/LoginPage'
 import DashboardTask from '../src/pages/DashboardTask'
 import RegisterPage from '../src/pages/RegisterPage'
+import Single_Task from './component/Single_Task'
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
         <Route exact path="/" element={<HomePage/>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/Dashboard" element={<DashboardTask />} />
+        <Route path="/dashboard" element={<DashboardTask />} />
+        <Route path="/task" element={<Single_Task />} />
       </Routes>
     </Router>
     

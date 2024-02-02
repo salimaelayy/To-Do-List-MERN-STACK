@@ -1,0 +1,17 @@
+/* Simplified scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #a0a0a0; /* Light grey color for scrollbar thumb */
+    border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #808080; /* Darker grey color on hover */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Light grey color for scrollbar track */
+}
