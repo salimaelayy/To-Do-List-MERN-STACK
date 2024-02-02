@@ -7,13 +7,12 @@ const DashboardTask = () => {
   return (
     <>
       <div className="flex bg-gray-100 text-gray-900 h-screen">
-    {/* Sidebar */}
-    
-    <DashboardSideBar/>
-    {/* Dashboard */}
-    <div className="flex flex-col flex-grow m-20">
-          <DashboardTaskContainers />
-    </div>
+        {/* Sidebar */}
+        <DashboardSideBar/>
+        {/* Dashboard */}
+        <div className="flex flex-col flex-grow m-20 h-screen">
+              <DashboardTaskContainers />
+        </div>
 </div>
       
     </>

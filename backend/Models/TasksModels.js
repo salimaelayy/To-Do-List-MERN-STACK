@@ -28,7 +28,7 @@ const  TasksSchema = new mongoose.Schema({
     },
     deadline: {
         type: Date,
-        // required: true
+        required: true
     },
     comments: {
         type: String
