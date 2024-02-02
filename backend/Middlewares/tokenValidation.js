@@ -1,6 +1,10 @@
 const { validate,verify } = require('jsonwebtoken')
+require('dotenv').config();
+
 
 const validateToken = (req, res, next) => {
+  console.log('Token validation middleware');
+
     
   const accessToken = req.cookies ? req.cookies['access-token'] : null
 

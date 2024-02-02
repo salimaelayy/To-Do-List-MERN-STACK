@@ -6,8 +6,13 @@ const { createToken } = require('../Middlewares/tokenCreation')
 
 const register= async(req,res,next)=> 
 {
+    console.log('Handling registration request');
+
     //get input from user
     const {username,password,email}=req.body
+    console.log('Received username:', username);
+  console.log('Received password:', password);
+  console.log('Received email:', email);
     
     try {
         //hash password
@@ -41,54 +46,102 @@ const register= async(req,res,next)=>
 
 
 }
-const login = async(req,res,next) =>
-{
+// const login = async(req,res,next) =>
+// {
+//     try {
+//         const { username, password } = req.body;
+    
+//         console.log("Received username:", username);
+//         console.log("Received password:", password);
+//         // Testing if user exists
+//         const userLoggedIn = await userModel.findOne({ username });
+//         const id = userLoggedIn._id;
+
+//         // console.log("User found in database:", userLoggedIn);
+    
+//         if (!userLoggedIn) {
+//             console.log("User doesn't exist");
+//             return res.status(404).json({ message: "Username not found" });
+//         }
+    
+//         // Ensure dbPassword is defined after userLoggedIn is retrieved
+//         const dbPassword = userLoggedIn.password;
+    
+//         // Check if passwords are valid and not empty
+//         if (!password || !dbPassword) {
+//             return res.status(400).json({ error: "Username or password is invalid" });
+//         }
+    
+//         // Compare the passwords
+//         const match = await bcrypt.compare(password, dbPassword);
+    
+//         // If the passwords don't match
+//         if (!match) {
+//             return res.status(400).json({ message: "Username or password are incorrect" });
+//         }
+    
+//         // Creating the access token
+//         const accessToken = createToken(userLoggedIn);  
+    
+//         // Putting the token in a cookie
+//         res.cookie("access-token", accessToken, { maxAge: 90000, httpOnly: true });
+    
+//         // Send a success response
+//         return res.json({ accessToken , id});
+//     } catch (error) {
+//         console.error("Error during login:", error);
+//         res.status(500).json({ error: error.message, message: "Error during login" });
+//     }
+    
+   
+// }
+const login = async (req, res, next) => {
     try {
         const { username, password } = req.body;
-    
         console.log("Received username:", username);
         console.log("Received password:", password);
+
         // Testing if user exists
         const userLoggedIn = await userModel.findOne({ username });
-
         console.log("User found in database:", userLoggedIn);
-    
+
         if (!userLoggedIn) {
             console.log("User doesn't exist");
             return res.status(404).json({ message: "Username not found" });
         }
-    
+
         // Ensure dbPassword is defined after userLoggedIn is retrieved
         const dbPassword = userLoggedIn.password;
-    
+
         // Check if passwords are valid and not empty
         if (!password || !dbPassword) {
             return res.status(400).json({ error: "Username or password is invalid" });
         }
-    
+
         // Compare the passwords
         const match = await bcrypt.compare(password, dbPassword);
-    
+
         // If the passwords don't match
         if (!match) {
             return res.status(400).json({ message: "Username or password are incorrect" });
         }
-    
+
         // Creating the access token
-        const accessToken = createToken(userLoggedIn);  
-    
+        const accessToken = createToken(userLoggedIn);
+
         // Putting the token in a cookie
         res.cookie("access-token", accessToken, { maxAge: 90000, httpOnly: true });
-    
+
         // Send a success response
-        res.status(200).json({ message: 'You are logged in' });
+        return res.json({ accessToken, id: userLoggedIn._id });
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ error: error.message, message: "Error during login" });
     }
-    
-   
 }
+
+
+  
 const profile= async(req,res,next)=>
 {
     res.json('profile')

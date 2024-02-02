@@ -20,7 +20,10 @@ const  TasksSchema = new mongoose.Schema({
     },
     deletedAt: {
         type: Date,
-        // required: true
+        required: true,
+        default: null, // Initially, the document is not soft deleted
+
+
     },
     createdBy: {
         type: String,
@@ -28,7 +31,7 @@ const  TasksSchema = new mongoose.Schema({
     },
     deadline: {
         type: Date,
-        // required: true
+        required: true
     },
     comments: {
         type: String

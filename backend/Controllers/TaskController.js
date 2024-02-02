@@ -7,7 +7,7 @@ module.exports.getTasks = async (req, res) => {
 
         const task = await Task.find()
 
-        console.log(!task) ;
+        // console.log(!task) ;
 
         if(!task){
 
@@ -96,25 +96,46 @@ module.exports.updateTask = async (req, res) => {
 };
 
   
-  module.exports.deleteTask = async (req, res) => {
-    const taskId = req.params.id;
-  
+module.exports.deleteTask = async (req, res) => {
+    const { id } = req.params; // Assuming the ID is passed as a parameter in the request
+    
     try {
-      const task = await Task.findById(taskId);
+      const updatedDocument = await Task.findOneAndUpdate(
+        { _id: id, deletedAt: null }, // Find the document by ID and ensure it's not already soft-deleted
+        { $set: { deletedAt: new Date() } }, // Set the deletedAt field to the current date
+        { new: true } // Return the updated document
+      );
   
-      if (!task) {
-        return res.status(404).json({ message: 'Task not found' });
+      if (!updatedDocument) {
+        return res.status(404).json({ message: 'Document not found or already soft-deleted' });
       }
   
-      // If the task exists, you can now delete it
-      await task.deleteOne();
-  
-      res.json({ message: `Task ${task.titre} is deleted successfully` });
+      return res.json(updatedDocument);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal Server Error', error: error.message });
+      console.error('Error during soft delete:', error);
+      return res.status(500).json({ message: 'Internal server error' });
     }
   };
+
+
+    // const taskId = req.params.id;
+  
+    // try {
+    //   const task = await Task.findById(taskId);
+  
+    //   if (!task) {
+    //     return res.status(404).json({ message: 'Task not found' });
+    //   }
+  
+    //   // If the task exists, you can now delete it
+    //   await task.deleteOne();
+  
+    //   res.json({ message: `Task ${task.titre} is deleted successfully` });
+    // } catch (error) {
+    //   console.error(error);
+    //   res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    // }
+//   };
   
   module.exports.getTaskByTitle = async (req, res) => {
     const taskName = req.query.title;
