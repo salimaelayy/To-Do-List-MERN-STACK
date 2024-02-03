@@ -101,6 +101,8 @@ module.exports.deleteTask = async (req, res) => {
     const { id } = req.params; // Assuming the ID is passed as a parameter in the request
     
     try {
+        console.log('Deleting task with ID:', id);
+
       const updatedDocument = await Task.findOneAndUpdate(
         { _id: id, deletedAt: null }, // Find the document by ID and ensure it's not already soft-deleted
         { $set: { deletedAt: new Date() } }, // Set the deletedAt field to the current date
