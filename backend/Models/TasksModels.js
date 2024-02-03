@@ -20,7 +20,6 @@ const  TasksSchema = new mongoose.Schema({
     },
     deletedAt: {
         type: Date,
-        required: true,
         default: null, // Initially, the document is not soft deleted
 
 

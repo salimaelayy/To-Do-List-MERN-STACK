@@ -1,7 +1,11 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
-const Single_Task = ({ task }) => {
+
+const Single_Task = ({ task, onDelete }) => {
+    const handleDeleteClick = () => {
+        onDelete(); // Call the onDelete callback to trigger the deletion
+    };
     return (
         <div className="max-w-xs mx-auto shadow-lg rounded-xl p-4 m-2 bg-white">
             <a href="#" className="block w-full">
@@ -16,7 +20,7 @@ const Single_Task = ({ task }) => {
                     </div>
                     <div className="flex items-center">
                         <span className="text-blue-500 cursor-pointer mr-2"><FaEdit /></span>
-                        <span className="text-red-500 cursor-pointer"><FaTrash /></span>
+                        <span className="text-red-500 cursor-pointer" onClick={handleDeleteClick}><FaTrash /></span>
                     </div>
                 </div>
             </a>
