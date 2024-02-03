@@ -3,8 +3,8 @@ import { FaTrash, FaEdit } from 'react-icons/fa';
 
 const Single_Task = ({ task }) => {
     return (
-        <div className="max-w-xs mx-auto shadow-lg rounded-xl p-4 m-2 bg-white">
-            <a href="#" className="block w-full">
+        <div className="max-w-xs mx-auto shadow-lg rounded-xl p-4 m-2 bg-white">{task.id}
+            <a href="#"  className="block w-full">
                 <div>
                     <p className="text-gray-400 font-mono text-xs mb-2">Created By: {task.createdBy}</p>
                     <p className="text-gray-800 text-2xl font-medium mb-2">{task.title}</p>

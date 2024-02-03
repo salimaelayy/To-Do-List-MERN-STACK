@@ -33,6 +33,7 @@ const DashboardTaskContainers = () => {
                     {tasks.map(task => (
                         <Single_Task key={task.id} task={task} />
                     ))}
+                    
                 </div>
                 <div className="container bg-white rounded-t-xl shadow-lg mr-4 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                     <div className="flex h-10 items-center p-10 rounded-t-xl bg-yellow-400">

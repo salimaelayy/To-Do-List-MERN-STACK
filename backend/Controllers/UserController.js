@@ -92,6 +92,7 @@ const register= async(req,res,next)=>
 //         console.error("Error during login:", error);
 //         res.status(500).json({ error: error.message, message: "Error during login" });
 //     }
+
     
    
 // }
