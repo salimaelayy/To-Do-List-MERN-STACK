@@ -11,14 +11,14 @@ module.exports.getTasks = async (req, res) => {
 
         if(!task){
 
-            res.status(404).send({message:'Not Found '});
+            res.status(404).send({message:'Not Found'});
 
         }
         res.status(200).json(task);
     } catch (error) {
         console.error(error);
 
-        res.status(500).send('Server Error ');
+        res.status(500).send('Server Error');
         
     }
 }
@@ -29,7 +29,7 @@ module.exports.getOneTasks = async (req, res) =>  {
         const task = await Task.findById(req.params.id);
         
         if (!task) {
-            return res.status(404).json({ message: 'Recipe not found' });
+            return res.status(404).json({ message: 'Task not found' });
         }
         
         res.status(200).json(task);
@@ -66,9 +66,18 @@ module.exports.addNewTask = async (req, res) => {
 };
 module.exports.updateTask = async (req, res) => {
     const taskId = req.params.id;
-    const { title, description, priority, status, deletedAt, createdBy, deadline, comments } = req.body;
 
     try {
+        // if (!Object.keys(req.body).length) {
+        //     return res.status(400).json({ message: 'Request body is empty' });
+        // }
+        if (!req.body) {
+            // If req.body is undefined or falsy, handle the error
+            return res.status(400).json({ message: 'Request body is missing' });
+        }
+
+        const { title, description, priority, status, deletedAt, createdBy, deadline, comments } = req.body;
+
         const task = await Task.findById(taskId);
 
         if (!task) {
@@ -76,19 +85,19 @@ module.exports.updateTask = async (req, res) => {
         }
 
         // Update task information based on the request body
-        task.title = title || task.title;
-        task.description = description || task.description;
-        task.priority = priority || task.priority;
-        task.status = status || task.status;
-        task.deletedAt = deletedAt || task.deletedAt;
-        task.createdBy = createdBy || task.createdBy;
-        task.deadline = deadline || task.deadline;
-        task.comments = comments || task.comments;
+        task.title = title !== undefined ? title : task.title;
+        task.description = description !== undefined ? description : task.description;
+        task.priority = priority !== undefined ? priority : task.priority;
+        task.status = status !== undefined ? status : task.status;
+        task.deletedAt = deletedAt !== undefined ? deletedAt : task.deletedAt;
+        task.createdBy = createdBy !== undefined ? createdBy : task.createdBy;
+        task.deadline = deadline !== undefined ? deadline : task.deadline;
+        task.comments = comments !== undefined ? comments : task.comments;
 
         // Save the updated task
         const updatedTask = await task.save();
 
-        res.json({ message: 'Task updated successfully', task: updatedTask });
+        return res.status(200).json({ message: 'Task updated successfully', task: updatedTask });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
