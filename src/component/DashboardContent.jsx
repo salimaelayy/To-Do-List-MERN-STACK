@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Single_Task from './Single_Task';
 import axios from 'axios';
-
-
-
+import { FaPlus } from 'react-icons/fa';
 import '../index.css'; 
+import AddTask from './AddTask';
 
 const DashboardTaskContainers = () => {
     const [tasks, setTasks] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
+    
 
     const fetchTasks = async () => {
       try {
@@ -36,8 +37,6 @@ const DashboardTaskContainers = () => {
             const response = await axios.delete(`http://localhost:3000/tasks/${taskId}`);
             console.log('Delete response:', response);
 
-
-
             if (response.status === 200) {
                 // If the deletion is successful, update the state to reflect the changes
                 const updatedTasks = tasks.filter((task) => task._id !== taskId);
@@ -48,20 +47,38 @@ const DashboardTaskContainers = () => {
         } catch (error) {
             console.error('Error deleting task:', error.message);
         }
+
     };
 
+    const handleOpenTaskAdding = () => {
+        setIsVisible(true);
+        console.log(isVisible);
+    };
+    const handleClose = () => {
+        setIsVisible(false);
+        console.log(isVisible);
+    };
+   
+    
     return (
         <div className="flex flex-col h-screen">
             <div className="flex flex-row h-screen">
                 <div className="container bg-white rounded-t-xl shadow-lg mr-4 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                    <div className="flex h-10 items-center p-10 rounded-t-xl bg-red-400">
-                        <span className="ml-2 text-white text-xl font-bold">To Do</span>
+                    <div className="flex h-10 items-center p-10 rounded-t-xl bg-red-400 relative">
+                    {isVisible && (
+                        <AddTask onClose={ handleClose}/>
+                    )}
+                        <span className="text-white text-xl font-bold">To Do</span>
+                        <div className="absolute right-4 bg-white rounded-full p-1 cursor-pointer text-red-400" >
+                            <FaPlus onClick={handleOpenTaskAdding} />
+                        </div>
                     </div>
+                    {/* Render tasks */}
                     {tasks.map(task => (
-            <div key={task._id} className="flex items-center">
-              <Single_Task task={task} onDelete={() => handleDelete(task._id)} />
-            </div>
-          ))}
+                        <div key={task._id} className="flex items-center">
+                            <Single_Task task={task} onDelete={() => handleDelete(task._id)} />
+                        </div>
+                    ))}
                 </div>
                 <div className="container bg-white rounded-t-xl shadow-lg mr-4 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                     <div className="flex h-10 items-center p-10 rounded-t-xl bg-yellow-400">
@@ -79,3 +96,4 @@ const DashboardTaskContainers = () => {
 };
 
 export default DashboardTaskContainers;
+

@@ -1,10 +1,17 @@
 import React,{ useState, useEffect } from 'react';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import AddTask from './AddTask';
 
 
 const Single_Task = ({ task, onDelete }) => {
     const handleDeleteClick = () => {
-        onDelete(); // Call the onDelete callback to trigger the deletion
+        onDelete(); 
+    };
+    const [showComponent, setShowComponent] = useState(false);
+
+    const EditTask = () => {
+      setShowComponent(true);
+      console.log("this button had been clicked")
     };
     return (
         <div className="max-w-xs mx-auto shadow-lg rounded-xl p-4 m-2 bg-white">{task.id}
@@ -19,7 +26,7 @@ const Single_Task = ({ task, onDelete }) => {
                         <p className="text-gray-400 font-thin text-sm mb-2">Deadline: {task.deadline}</p>
                     </div>
                     <div className="flex items-center">
-                        <span className="text-blue-500 cursor-pointer mr-2"><FaEdit /></span>
+                        <span className="text-blue-500 cursor-pointer mr-2" onClick={EditTask}><FaEdit /></span>
                         <span className="text-red-500 cursor-pointer" onClick={handleDeleteClick}><FaTrash /></span>
                     </div>
                 </div>
