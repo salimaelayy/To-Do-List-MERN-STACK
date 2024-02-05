@@ -106,9 +106,9 @@ const AddTask = ({onClose}) => {
                 className="border-gray-300 rounded-md py-2 px-3 w-full shadow-md" 
                 onChange={handleChange}
               >
-                <option value="todo">To Do</option>
-                <option value="inprogress">In Progress</option>
-                <option value="done">Done</option>
+                <option value="To do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
               </select>
             </div>
           </div>

@@ -1,69 +1,37 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react';
+import Single_Task from '../component/Single_Task';
 
 const HomePage = () => {
-  return (
-    <div><div className="flex flex-col gap-4 items-center justify-center h-screen">
-    <div className="shadow-lg rounded-xl p-4 bg-white">
-        <a href="#" className="block">
-            <div>
-                <p className="text-gray-800 text-xl font-medium mb-2">
-                    Another card title
-                </p>
-                <p className="text-blue-600 text-xs font-medium mb-2">
-                    Due: Monday, 24 August
-                </p>
-                <p className="text-gray-400 text-sm mb-4">
-                    This is another description for the card...
-                </p>
-            </div>
-            <div className="flex items-center justify-end mt-2">
-                <span className="text-blue-500 cursor-pointer mr-2">Edit</span>
-                <span className="text-red-500 cursor-pointer">Delete</span>
-            </div>
-        </a>
-    </div>
-    <div className="shadow-lg rounded-xl p-4 bg-white">
-        <a href="#" className="block">
-            <div>
-                <p className="text-gray-800 text-xl font-medium mb-2">
-                    Another card title
-                </p>
-                <p className="text-blue-600 text-xs font-medium mb-2">
-                    Due: Monday, 24 August
-                </p>
-                <p className="text-gray-400 text-sm mb-4">
-                    This is another description for the card...
-                </p>
-            </div>
-            <div className="flex items-center justify-end mt-2">
-                <span className="text-blue-500 cursor-pointer mr-2">Edit</span>
-                <span className="text-red-500 cursor-pointer">Delete</span>
-            </div>
-        </a>
-    </div>
-    <div className="shadow-lg rounded-xl p-4 bg-white">
-        <a href="#" className="block">
-            <div>
-                <p className="text-gray-800 text-xl font-medium mb-2">
-                    Another card title
-                </p>
-                <p className="text-blue-600 text-xs font-medium mb-2">
-                    Due: Monday, 24 August
-                </p>
-                <p className="text-gray-400 text-sm mb-4">
-                    This is another description for the card...
-                </p>
-            </div>
-            <div className="flex items-center justify-end mt-2">
-                <span className="text-blue-500 cursor-pointer mr-2">Edit</span>
-                <span className="text-red-500 cursor-pointer">Delete</span>
-            </div>
-        </a>
-    </div>
-</div>
-  </div>
-  )
-}
+    const [tasks, setTasks] = useState([]);
 
-export default HomePage
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/tasks/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tasks');
+                }
+                const data = await response.json();
+                // Filter out deleted tasks before updating the state
+                const nonDeletedTasks = data.filter(task => task.deletedAt === null);
+                setTasks(nonDeletedTasks);
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
+        };
+
+        fetchTasks();
+    }, []); // Make sure to run fetchTasks when the component mounts
+
+    return (
+        <div className="flex flex-col gap-4 items-center justify-center h-screen">
+            {tasks.map(task => (
+                    <div key={task._id} className="flex items-center">
+                        <Single_Task task={task} />
+                    </div>
+            ))}
+        </div>
+    );
+};
+
+export default HomePage;

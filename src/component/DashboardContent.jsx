@@ -10,6 +10,9 @@ const DashboardTaskContainers = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+    //get all types of statuses    
+    const statuses = [...new Set(tasks.map(task => task.status))];
+    
     
     
 
@@ -71,30 +74,48 @@ const DashboardTaskContainers = () => {
             <div className="flex flex-row h-screen">
                 <div className="container bg-white rounded-t-xl shadow-lg mr-4 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                     <div className="flex h-10 items-center p-10 rounded-t-xl bg-red-400 relative">
-                    {isVisible && (
-                        <AddTask onClose={ handleClose}/>
-                    )}
-                        <span className="text-white text-xl font-bold">To Do</span>
-                        <div className="absolute right-4 bg-white rounded-full p-1 cursor-pointer text-red-400" >
-                            <FaPlus onClick={handleOpenTaskAdding} />
-                        </div>
+                        {isVisible && (
+                            <AddTask onClose={ handleClose}/>
+                        )}
+                            <span className="text-white text-xl font-bold">To Do</span>
+                            <div className="absolute right-4 bg-white rounded-full p-1 cursor-pointer text-red-400" >
+                                <FaPlus onClick={handleOpenTaskAdding} />
+                            </div>
                     </div>
                     {/* Render tasks */}
                     {tasks.map(task => (
+                        task.status === "To Do" && (
                         <div key={task._id} className="flex items-center">
                             <Single_Task task={task} key={task._id} onEdit={handleEdit} onDelete={() => handleDelete(task._id)} />
                         </div>
+                        )
                     ))}
                 </div>
                 <div className="container bg-white rounded-t-xl shadow-lg mr-4 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                     <div className="flex h-10 items-center p-10 rounded-t-xl bg-yellow-400">
                         <span className="ml-2 text-white text-xl font-bold">In Progress</span>
+                        
                     </div>
+                    {tasks.map(task => (
+                        task.status === "In Progress" && (
+                        <div key={task._id} className="flex items-center">
+                            <Single_Task task={task} key={task._id} onEdit={handleEdit} onDelete={() => handleDelete(task._id)} />
+                        </div>
+                        )
+                    ))}
                 </div>
                 <div className="container bg-white rounded-t-xl shadow-lg mr-4 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                     <div className="flex h-10 items-center p-10 rounded-t-xl bg-green-400">
                         <span className="ml-2 text-white text-xl font-bold">Done</span>
+                        
                     </div>
+                    {tasks.map(task => (
+                          task.status === "Done" && (
+                        <div key={task._id} className="flex items-center">
+                            <Single_Task task={task} key={task._id} onEdit={handleEdit} onDelete={() => handleDelete(task._id)} />
+                        </div>
+                          )
+                    ))}
                 </div>
             </div>
         </div>
