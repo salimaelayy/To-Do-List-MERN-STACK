@@ -3,8 +3,6 @@ import { IoMdClose } from "react-icons/io";
 
 const AddTask = ({onClose}) => {
   
-    const [isVisible, setIsVisible] = useState(false);
-
     const [taskData,setTaskData]=useState({
         title: '',
         description: '',

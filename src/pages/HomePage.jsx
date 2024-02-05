@@ -1,5 +1,4 @@
 import React from 'react'
-import ReadEditTask from '../component/ReadEditTask'
 
 
 const HomePage = () => {
@@ -63,7 +62,6 @@ const HomePage = () => {
         </a>
     </div>
 </div>
-    <ReadEditTask/>
   </div>
   )
 }

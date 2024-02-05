@@ -8,6 +8,9 @@ import AddTask from './AddTask';
 const DashboardTaskContainers = () => {
     const [tasks, setTasks] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
+    const [selectedTask, setSelectedTask] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
+    
     
 
     const fetchTasks = async () => {
@@ -58,7 +61,10 @@ const DashboardTaskContainers = () => {
         setIsVisible(false);
         console.log(isVisible);
     };
-   
+    const handleEdit = (task) => {
+        setSelectedTask(task);
+        setIsEditing(true);
+      };
     
     return (
         <div className="flex flex-col h-screen">
@@ -76,7 +82,7 @@ const DashboardTaskContainers = () => {
                     {/* Render tasks */}
                     {tasks.map(task => (
                         <div key={task._id} className="flex items-center">
-                            <Single_Task task={task} onDelete={() => handleDelete(task._id)} />
+                            <Single_Task task={task} key={task._id} onEdit={handleEdit} onDelete={() => handleDelete(task._id)} />
                         </div>
                     ))}
                 </div>
